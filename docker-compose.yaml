@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    mydb:
+        volumes:
+            - ./test:/docker-entrypoint-initdb.d
+            - testdb1:/var/lib/mysql'
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=true
+        image: mysql
+
+    frontend:
+      build: .
+      ports:
+        - 80
+      environment:
+        - TITLE=weekend
+        - COLOR=magenta
+        - DBHOST=mydb
+
+volumes:
+  testdb1:
